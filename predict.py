@@ -4,7 +4,6 @@ import sys
 
 rnn = torch.load('classification.pt')
 
-# Just return an output given a line
 def evaluate(line_tensor):
     hidden = rnn.initHidden()
     
@@ -29,5 +28,4 @@ def predict(line, n_predictions=1):
     return predictions
 
 if __name__ == '__main__':
-    #predict(sys.argv[1])
-    predict('salam salam')
+    predict(sys.argv[1])

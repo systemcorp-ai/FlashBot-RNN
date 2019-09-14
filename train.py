@@ -9,10 +9,10 @@ n_hidden = 128
 n_epochs = 50000
 print_every = 5000
 plot_every = 1000
-learning_rate = 0.005 # If you set this too high, it might explode. If too low, it might not learn
+learning_rate = 0.005 
 
 def categoryFromOutput(output):
-    top_n, top_i = output.data.topk(1) # Tensor out of Variable with .data
+    top_n, top_i = output.data.topk(1) 
     category_i = top_i[0][0]
     return all_categories[category_i], category_i
 
@@ -44,7 +44,6 @@ def train(category_tensor, line_tensor):
 
     return output, loss.item()
 
-# Keep track of losses for plotting
 current_loss = 0
 all_losses = []
 
@@ -62,13 +61,11 @@ for epoch in range(1, n_epochs + 1):
     output, loss = train(category_tensor, line_tensor)
     current_loss += loss
 
-    # Print epoch number, loss, name and guess
     if epoch % print_every == 0:
         guess, guess_i = categoryFromOutput(output)
         correct = '✓' if guess == category else '✗ (%s)' % category
         print('%d %d%% (%s) %.4f %s / %s %s' % (epoch, epoch / n_epochs * 100, timeSince(start), loss, line, guess, correct))
 
-    # Add current loss avg to list of losses
     if epoch % plot_every == 0:
         all_losses.append(current_loss / plot_every)
         current_loss = 0
